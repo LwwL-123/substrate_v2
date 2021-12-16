@@ -157,7 +157,7 @@ pub fn ttc_testnet_config() -> Result<ChainSpec, String> {
 			wasm_binary,
 			// Initial PoA authorities
 			vec![
-				//alice
+				// node1
 				(
 					// 5D4T7ZMy6fBaoL4yt4oFqTbXwHyrizUhxysPsPBQWUMFWhYN
 					hex!["2c0a9a68ee2376df7360cd41a5dce338a0a7115d459ac09e97f36e572a191654"].into(),
@@ -170,7 +170,7 @@ pub fn ttc_testnet_config() -> Result<ChainSpec, String> {
 					// 5CeuRCA42VFtNMF3nYZJkeLye2pWiYxmnzYMh2EASyMDKauE
 					hex!["1a1542c0d312242c2f9045bfd98bb73076950b4665baa8d460e4b9b9d9dc043a"].unchecked_into(),
 				),
-				//bob
+				// node2
 				(
 					// 5HVYYi4UynHdMD4Y4W6JANro5hg5kMuUrioeMvLv1kXL6vJQ
 					hex!["f01ef69992c22cc26b98efeae07d3176936da1737b8fe624441f898bd0c74355"].into(),
@@ -183,7 +183,7 @@ pub fn ttc_testnet_config() -> Result<ChainSpec, String> {
 					// 5GWyTHcZNrYPQ2zv1yzrUGtEtzCkNcCNFpHjHjVN9W76DU3C
 					hex!["c4f9d16d2cf83956648843419db272ee3507a860fef203d5016ef0d0ce0d9a29"].unchecked_into(),
 				),
-				//dave
+				// node3
 				(
 					// 5Fe16PvhNmRcyLgw7z25JapzYRhveA3CGAcaWMbheqFwwCiK
 					hex!["9e19d291982a538eb67521f809dffeb7695d1791f49fac4e95f1d1bafe67014f"].into(),
@@ -196,6 +196,32 @@ pub fn ttc_testnet_config() -> Result<ChainSpec, String> {
 					// 5HHPKrFJhZF7fHvtagfZT25q7wsha3gUXx5CBvzWtoTpP6KF
 					hex!["e6d8f9b41bc64362176fae74b510ff16de998a252a311f12f7d4f63c2c1b3f05"].unchecked_into(),
 				),
+				// node4
+				(
+					// 5GRUt6kTUoyuhApormJeGKM3VN6Q3z3ep3ugPpwG1xVivm6w
+					hex!["c0c968916113fddd793b4e0ac628ae30cc5eaeceedf1e701088eae5e28ec2f24"].into(),
+					// 5EfFzDjNEY1UKq9Qoke3e7QfWx89EQk2k2EwK3HwgVKgJJbg
+					hex!["72d2f875b9bd92d77eae95f62242a97445290be989c5baf4e163a73f13be520a"].into(),
+					// 5EfFzDjNEY1UKq9Qoke3e7QfWx89EQk2k2EwK3HwgVKgJJbg
+					hex!["72d2f875b9bd92d77eae95f62242a97445290be989c5baf4e163a73f13be520a"].unchecked_into(),
+					// 5GVQoMXm9Dcm4GaunqgcgkW35fyUfn4BnqcVgb6mvRGi6NXC
+					hex!["c3c8a644374a2715a43fafd38e5111637add46ef9e62304a819c3100819bed12"].unchecked_into(),
+					// 5EfFzDjNEY1UKq9Qoke3e7QfWx89EQk2k2EwK3HwgVKgJJbg
+					hex!["72d2f875b9bd92d77eae95f62242a97445290be989c5baf4e163a73f13be520a"].unchecked_into(),
+				),
+				// node5
+				(
+					// 5GHHX7bKePF2LYYDvavPZjZbamjDxEUdYxXv7HvksXe18wCS
+					hex!["ba8932ac626da0836b968bf37581d779ca645595e67e63190a08892ad182bb69"].into(),
+					// 5HgcLrfVHas21iktJHftztkasBh8fskMS4t7Hmyq3TCEJsDs
+					hex!["f88f70a7f267f79b3bfd66a5f791aea08805da61bb07ac4b56ab6acff074354e"].into(),
+					// 5HgcLrfVHas21iktJHftztkasBh8fskMS4t7Hmyq3TCEJsDs
+					hex!["f88f70a7f267f79b3bfd66a5f791aea08805da61bb07ac4b56ab6acff074354e"].unchecked_into(),
+					// 5DwyufeSCAaoH5V9p8LqmnExFVMpGCxU38YS4nYGAHEM1nVP
+					hex!["5357c8adb7bdafb2620122d38247b65667a086eacb251c7a73357d8ee40fbf62"].unchecked_into(),
+					// 5HgcLrfVHas21iktJHftztkasBh8fskMS4t7Hmyq3TCEJsDs
+					hex!["f88f70a7f267f79b3bfd66a5f791aea08805da61bb07ac4b56ab6acff074354e"].unchecked_into(),
+				)
 			],
 			// Sudo account
 			hex!["1a1542c0d312242c2f9045bfd98bb73076950b4665baa8d460e4b9b9d9dc043a"].into(),
@@ -213,6 +239,17 @@ pub fn ttc_testnet_config() -> Result<ChainSpec, String> {
 						 hex!["9e19d291982a538eb67521f809dffeb7695d1791f49fac4e95f1d1bafe67014f"].into(),
 						 // 5HHPKrFJhZF7fHvtagfZT25q7wsha3gUXx5CBvzWtoTpP6KF
 						 hex!["e6d8f9b41bc64362176fae74b510ff16de998a252a311f12f7d4f63c2c1b3f05"].into(),
+						 // 5GRUt6kTUoyuhApormJeGKM3VN6Q3z3ep3ugPpwG1xVivm6w
+						 hex!["c0c968916113fddd793b4e0ac628ae30cc5eaeceedf1e701088eae5e28ec2f24"].into(),
+						 // 5EfFzDjNEY1UKq9Qoke3e7QfWx89EQk2k2EwK3HwgVKgJJbg
+						 hex!["72d2f875b9bd92d77eae95f62242a97445290be989c5baf4e163a73f13be520a"].into(),
+						 // 5GHHX7bKePF2LYYDvavPZjZbamjDxEUdYxXv7HvksXe18wCS
+						 hex!["ba8932ac626da0836b968bf37581d779ca645595e67e63190a08892ad182bb69"].into(),
+						 // 5HgcLrfVHas21iktJHftztkasBh8fskMS4t7Hmyq3TCEJsDs
+						 hex!["f88f70a7f267f79b3bfd66a5f791aea08805da61bb07ac4b56ab6acff074354e"].into(),
+						 // ttc初始账户
+						 // 5CDkYj2QVm2VkMiAwC3P5dMoCuNyHm1gx2wvrmGdbxQdTCbu
+						 hex!["06e6441fe8e2809044fe6850739b4a5584f78f1425ab7403f8737337f8d6ab7e"].into(),
 			],
 			true,
 		),
@@ -257,7 +294,13 @@ fn testnet_genesis(
 		},
 		balances: BalancesConfig {
 			// Configure endowed accounts with initial balance of 1 << 60.
-			balances: endowed_accounts.iter().cloned().map(|k|(k, 1 << 80)).collect(),
+			balances:
+			endowed_accounts.iter().cloned().map(|k|
+				if k != hex!["06e6441fe8e2809044fe6850739b4a5584f78f1425ab7403f8737337f8d6ab7e"].into() {
+					(k,2000_000_000_000_000)
+				}else {
+					(k,20_000_000_000_000_000_000)
+				}).collect(),
 		},
 		babe: BabeConfig {
 			authorities: vec![],

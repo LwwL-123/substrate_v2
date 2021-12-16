@@ -3,11 +3,14 @@ use codec::{Decode, Encode};
 use serde::{Deserialize, Serialize};
 use sp_debug_derive::RuntimeDebug;
 use sp_std::vec::Vec;
+use frame_support::Parameter;
+use sp_runtime::traits::AtLeast32BitUnsigned;
 
 
 /// 算力资源
 #[derive(PartialEq, Eq, Clone, Encode, Decode, RuntimeDebug)]
-pub struct ComputingResource<BlockNumber, AccountId> {
+pub struct ComputingResource<BlockNumber, AccountId>
+    where BlockNumber: Parameter + AtLeast32BitUnsigned {
     /// 算力资源索引
     pub index: u64,
     /// 提供者账户
@@ -25,7 +28,9 @@ pub struct ComputingResource<BlockNumber, AccountId> {
 
 }
 
-impl<BlockNumber, AccountId> ComputingResource<BlockNumber, AccountId> {
+impl<BlockNumber, AccountId> ComputingResource<BlockNumber, AccountId>
+    where BlockNumber: Parameter + AtLeast32BitUnsigned
+{
     pub fn new(index: u64,
                account_id: AccountId,
                peer_id: Vec<u8>,
@@ -45,8 +50,14 @@ impl<BlockNumber, AccountId> ComputingResource<BlockNumber, AccountId> {
     }
 
     /// 更新单价
-    pub fn update_rental_unit_price(&mut self, rent_unit_price: u128) {
+    pub fn update_resource_price(&mut self, rent_unit_price: u128) {
         self.rental_info.set_rent_unit_price(rent_unit_price);
+    }
+
+    /// 增加可租用时长
+    pub fn add_resource_duration(&mut self,duration:BlockNumber) {
+        self.rental_info.rent_duration += duration.clone();
+        self.rental_info.end_of_rent += duration;
     }
 
     /// 更新状态
@@ -65,6 +76,8 @@ pub enum ResourceStatus {
     Locked,
     /// 未使用
     Unused,
+    /// 已掉线
+    Offline,
 }
 
 
@@ -171,7 +184,7 @@ impl<BlockNumber> ResourceRentalInfo<BlockNumber> {
 }
 
 pub trait ProviderInterface {
-    type BlockNumber;
+    type BlockNumber: Parameter + AtLeast32BitUnsigned;
     type AccountId;
 
     /// 获取计算资源信息
@@ -179,6 +192,6 @@ pub trait ProviderInterface {
 
     /// 更新算力资源信息
     fn update_computing_resource
-    (index: u64, resource: ComputingResource<Self::AccountId, Self::AccountId>);
+    (index: u64, resource: ComputingResource<Self::BlockNumber, Self::AccountId>);
 }
 

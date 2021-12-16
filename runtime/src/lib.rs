@@ -116,9 +116,16 @@ const MAXIMUM_BLOCK_WEIGHT: Weight = 2 * WEIGHT_PER_SECOND;
 
 pub mod currency {
 	use super::Balance;
-	pub const MILLICENTS: Balance = 1_000_000_000;
-	pub const CENTS: Balance = 1_000 * MILLICENTS;    // assume this is worth about a cent.
-	pub const DOLLARS: Balance = 100 * CENTS;
+	pub const TTC: Balance = 1_000_000_000_000;  //10^12
+	pub const DOLLARS: Balance = TTC;
+	pub const CENTS: Balance = TTC / 100;        //10^10
+	pub const MILLICENTS: Balance = CENTS / 1_000; //10^7
+
+
+	pub const MILLI: Balance = TTC / 1000;       //10^9
+	pub const MICRO: Balance = MILLI / 1000;     //10^6
+	pub const NANO: Balance = MICRO / 1000;      //10^3
+	pub const PICO: Balance = 1;                 //1
 }
 pub use currency::*;
 // To learn more about runtime versioning and what each of the following value means:
@@ -517,9 +524,9 @@ parameter_types! {
 
 	// signed config
 	pub const SignedMaxSubmissions: u32 = 10;
-	pub const SignedRewardBase: Balance = 1 * DOLLARS;
-	pub const SignedDepositBase: Balance = 1 * DOLLARS;
-	pub const SignedDepositByte: Balance = 1 * CENTS;
+	pub const SignedRewardBase: Balance = 100 * DOLLARS;
+	pub const SignedDepositBase: Balance = 100 * DOLLARS;
+	pub const SignedDepositByte: Balance = 1 * DOLLARS;
 
 	// fallback: no on-chain fallback.
 	pub const Fallback: pallet_election_provider_multi_phase::FallbackStrategy =
@@ -587,9 +594,9 @@ impl pallet_authority_discovery::Config for Runtime {}
 
 parameter_types! {
 	// 轮询间隔
-	pub const PollingInterval: BlockNumber = 5 * MINUTES;
-	// 不被惩罚的最大健康上报间隔
-	pub const HealthCheckInterval: BlockNumber = 2 * MINUTES;
+	pub const ResourceInterval: BlockNumber = 3 * HOURS;
+	// 健康检查间隔
+	pub const HealthCheckInterval: BlockNumber = 10 * MINUTES;
 }
 
 /// ResourceOrder
@@ -600,14 +607,15 @@ impl pallet_resource_order::Config for Runtime{
 	type BlockNumberToNumber = ConvertInto;
 	type NumberToBalance = ConvertInto;
 	type BalanceToNumber = ConvertInto;
-	type PollingInterval = PollingInterval;
 	type HealthCheckInterval = HealthCheckInterval;
+	type UnixTime = Timestamp;
 }
 
 impl pallet_provider::Config for Runtime {
 	type Event = Event;
 	type Currency = Balances;
 	type BalanceToNumber = ConvertInto;
+	type ResourceInterval = ResourceInterval;
 }
 
 parameter_types! {
@@ -835,6 +843,7 @@ impl_runtime_apis! {
 			add_benchmark!(params, batches, pallet_balances, Balances);
 			add_benchmark!(params, batches, pallet_timestamp, Timestamp);
 			add_benchmark!(params, batches, pallet_template, TemplateModule);
+			add_benchmark!(params, batches, pallet_resource_order, ResourceOrder);
 
 			if batches.is_empty() { return Err("Benchmark not found for this pallet.".into()) }
 			Ok(batches)
