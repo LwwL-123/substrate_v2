@@ -196,3 +196,20 @@ by appending your own. A few useful ones are as follow.
 # Check whether the code is compilable
 ./scripts/docker_run.sh cargo check
 ```
+
+### 代码结构
+├── docs                                文档
+├── node                                substrate node模块包
+│   └── src                       substrate node源码包
+├── pallets                             substrate pallets 包
+│   ├── provider                  计算提供合约包
+│   │   └── src             计算提供合约实现源码
+│   ├── resource-order            资源订单合约包
+│   │   └── src             资源订单合约实现模板
+│   └── template                  substrate pallet 模板
+│       └── src                   substrate pallet 模板 hello-world 案例  
+├── primitives                          公共对象包
+│   └── src                       公共对象源码包
+├── runtime                             substrate runtime 包 
+│   └── src                       substrate runtime 实现包
+└── scripts                             substrate 运行工具脚本目录           
